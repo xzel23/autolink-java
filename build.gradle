@@ -1,0 +1,56 @@
+plugins {
+  // Jigsaw support
+  id "com.dua3.gradle.jpms" version "0.4.0"    
+  // publishing to bintray
+  id "com.jfrog.bintray" version "1.8.0"
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'org.nibor.autolink'
+version = '0.8.1-jpms-SNAPSHOT'
+
+description = """autolink-java"""
+
+sourceCompatibility = 8
+targetCompatibility = 8
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+repositories {
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    testCompile group: 'org.openjdk.jmh', name: 'jmh-core', version:'1.19'
+}
+
+// === BINTRAY === >
+
+bintray {
+    user = findProperty('BINTRAY_USER') ?: 'NONE'
+    key = findProperty('BINTRAY_KEY') ?: 'NONE'
+
+    configurations = ['archives']
+
+    dryRun = false //[Default: false] Whether to run this as dry-run, without deploying
+    publish = false //[Default: false] Whether version should be auto published after an upload    
+    override = false //[Default: false] Whether to override version artifacts already published    
+
+    pkg {
+        repo = 'public'
+        name = project.group
+        userOrg = findProperty('BINTRAY_USER_ORG') ?: 'NONE'
+        licenses = ['MIT']
+
+        version {
+            name = project.version
+            desc = project.name+version
+            released  = new Date()
+            vcsTag = project.version
+        }
+    }
+}

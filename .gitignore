@@ -10,3 +10,7 @@
 # mvn
 target/
 /bin/
+
+# Gradle
+./.gradle/
+./build/

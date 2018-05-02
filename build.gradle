@@ -9,7 +9,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 
 group = 'org.nibor.autolink'
-version = '0.8.1-jpms-SNAPSHOT'
+version = '0.8.0-jpms'
 
 description = """autolink-java"""
 

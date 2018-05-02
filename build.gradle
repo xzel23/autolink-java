@@ -10,6 +10,7 @@ apply plugin: 'maven'
 
 group = 'org.nibor.autolink'
 version = '0.8.0-jpms'
+ext.scm = 'https://github.com/xzel23/autolink-java.git'
 
 description = """autolink-java"""
 
@@ -45,6 +46,7 @@ bintray {
         name = project.group
         userOrg = findProperty('BINTRAY_USER_ORG') ?: 'NONE'
         licenses = ['MIT']
+        vcsUrl = project.scm
 
         version {
             name = project.version
